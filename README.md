@@ -7,7 +7,7 @@
 # 安装依赖
 
 ```bash
-npm install -D glob rollup-plugin-copy
+npm install -D glob rollup-plugin-copy @dafengzhen/vite-plugin-mp
 ```
 
 # 使用插件
