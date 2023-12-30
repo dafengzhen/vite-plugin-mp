@@ -1,0 +1,68 @@
+{
+  "name": "@dafengzhen/vite-plugin-mp",
+  "version": "1.0.0",
+  "description": "vite-plugin-mp 使用 Vite 编译微信小程序",
+  "type": "module",
+  "main": "dist/main.umd.cjs",
+  "module": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/main.js",
+      "require": "./dist/main.umd.cjs"
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "glob": "^10.3.10",
+    "prettier": "^3.1.1",
+    "rollup-plugin-copy": "^3.5.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10"
+  },
+  "peerDependencies": {
+    "glob": ">=10.3.10",
+    "rollup-plugin-copy": ">=3.5.0",
+    "vite": ">=5.0.10"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "dev": "yarn build --mode development --watch",
+    "build": "tsc && vite build --mode production",
+    "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "publishConfig": {
+    "access": "public",
+    "tag": "latest",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dafengzhen/vite-plugin-mp.git"
+  },
+  "keywords": [
+    "vite",
+    "rollup",
+    "plugin",
+    "weixin",
+    "wechat",
+    "mini programs",
+    "mp",
+    "typescript",
+    "sass",
+    "wxml",
+    "wxss"
+  ],
+  "author": "dafengzhen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dafengzhen/vite-plugin-mp/issues"
+  },
+  "homepage": "https://github.com/dafengzhen/vite-plugin-mp#readme"
+}
