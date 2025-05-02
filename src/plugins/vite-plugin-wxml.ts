@@ -36,10 +36,50 @@ export interface WxmlPluginOptions {
   rootDir?: string;
 }
 
+const isUint8Array = (input: string | Uint8Array): input is Uint8Array => {
+  return Object.prototype.toString.call(input) === '[object Uint8Array]';
+};
+
+const decodeIfUint8Array = (input: string | Uint8Array): { text: string; wasBinary: boolean } => {
+  if (isUint8Array(input)) {
+    return { text: new TextDecoder('utf-8').decode(input), wasBinary: true };
+  }
+  return { text: input, wasBinary: false };
+};
+
+const processSource = async (
+  input: string | Uint8Array,
+  fileKeys: string[],
+  compress?: (html: string | Uint8Array) => Promise<string | Uint8Array> | string | Uint8Array,
+): Promise<string | Uint8Array> => {
+  const { text, wasBinary } = decodeIfUint8Array(input);
+
+  let processed: string | Uint8Array = stripScriptBlocks(text, fileKeys);
+
+  if (typeof compress === 'function') {
+    const result = wasBinary ? compress(new TextEncoder().encode(processed)) : compress(processed);
+    if (result instanceof Promise) {
+      processed = await result;
+    } else {
+      processed = result;
+    }
+  }
+
+  return processed;
+};
+
+const stripScriptBlocks = (source: string, keys: string[]): string => {
+  const scriptRegex = /<script\b[^>]*>([\s\S]*?)<\/script>/gi;
+  return source.replaceAll(scriptRegex, (match) => {
+    return keys.some((key) => match.includes(key)) ? '' : match;
+  });
+};
+
 export default function wxmlPlugin(options: WxmlPluginOptions = {}): Plugin {
   const rootDir = options.rootDir ?? 'miniprogram';
   const outputDir = options.outputDir ?? 'miniprogram';
   const compress = options.compress;
+  const fileKeys: string[] = [];
 
   return {
     config(config: UserConfig) {
@@ -52,6 +92,7 @@ export default function wxmlPlugin(options: WxmlPluginOptions = {}): Plugin {
           const hash = crypto.createHash('md5').update(file).digest('hex').slice(0, 8);
           const key = `${WXML_PREFIX}${relative}-${hash}`;
 
+          fileKeys.push(`${key}.js`);
           acc[key] = path.resolve(file);
           return acc;
         },
@@ -71,11 +112,7 @@ export default function wxmlPlugin(options: WxmlPluginOptions = {}): Plugin {
                       const finalPath = normalizePath(path.join(outputDir, relative));
                       delete bundle[fileName];
 
-                      let source = file.source;
-                      if (typeof compress === 'function') {
-                        source = await compress(source);
-                      }
-
+                      const source = await processSource(file.source, fileKeys, compress);
                       bundle[relative] = {
                         ...file,
                         fileName: finalPath,

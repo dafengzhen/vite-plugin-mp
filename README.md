@@ -79,7 +79,7 @@ dist
 └── project.config.json
 ```
 
-<img src="images/build.png" alt="build" style="width:50%; height:auto;">
+<img src="images/build.png" alt="build" style="width:60%; height:auto;">
 
 ## 插件选项
 
