@@ -1,146 +1,171 @@
-# 使用 Vite 编译微信小程序
+## 使用 Vite 编译微信小程序
 
-当你想使用原生微信小程序开发，不想使用其他框架进行开发，只想简单的使用 Vite 进行编译打包，那么这就是该插件用途
+该插件使用 Vite 对原生微信小程序编译
 
-注意使用版本，该插件测试的为微信小程序基于 Skyline 渲染引擎的 Ts + Scss 模板，以及 Vite 5
+## 安装插件
 
-# 安装依赖
+请确保你已安装 [vite 6](https://vite.dev/guide/#manual-installation)
+
+如果还没有安装，请执行：```npm install -D vite```
 
 ```bash
-npm install -D glob rollup-plugin-copy @dafengzhen/vite-plugin-mp
+npm install -D @dafengzhen/vite-plugin-mp
 ```
 
-# 使用插件
+## 使用插件
 
-- **编辑 ```vite.config.ts``` 文件**
+- **配置插件**
 
 ```javascript
-import path from "path";
 import VitePluginMp from '@dafengzhen/vite-plugin-mp';
-import {defineConfig} from 'vite';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
-    plugins: [
-        VitePluginMp({
-            buildDir: path.resolve(__dirname, 'miniprogram'),
-            outputDir: path.resolve(__dirname, 'dist')
-        })
-    ]
-})
+  plugins: [VitePluginMp()],
+});
 ```
 
-- **构建编译小程序**
+- **编译打包**
 
 ```bash
 npm run build
 ```
 
-- **输入输出示例**
-
-这里省略多余的文件，只展示关键信息
-
-输入的代码结构：
+- **输入输出**
 
 ```text
-├── ...
-├── miniprogram
-│   ├── apis
-│   │   └── test
-│   │       └── index.ts
-│   ├── app.json
-│   ├── app.scss
-│   ├── app.ts
-│   ├── assets
-│   │   ├── images
-│   │   │   ├── test.png
-│   ├── components
-│   │   └── navigation-bar
-│   │       ├── navigation-bar.json
-│   │       ├── navigation-bar.scss
-│   │       ├── navigation-bar.ts
-│   │       └── navigation-bar.wxml
-│   ├── constants
-│   │   └── index.ts
-│   ├── interfaces
-│   │   └── index.ts
-│   ├── pages
-│   │   ├── index
-│   │   │   ├── index.json
-│   │   │   ├── index.scss
-│   │   │   ├── index.ts
-│   │   │   └── index.wxml
-│   ├── sitemap.json
-│   └── tools
-│       ├── index.ts
-│       ├── request.ts
-│       └── upload-request.ts
+# 输入
+miniprogram
+├── app.json
+├── app.ts
+├── app.wxss
+├── pages
+│   ├── index
+│   │   ├── index.json
+│   │   ├── index.ts
+│   │   ├── index.wxml
+│   │   └── index.wxss
+│   └── logs
+│       ├── logs.json
+│       ├── logs.ts
+│       ├── logs.wxml
+│       └── logs.wxss
+└── utils
+    └── util.ts
+project.config.json
+project.private.config.json
+```
+
+```text
+# 输出
+dist
+├── app.js
+├── app.json
+├── app.wxss
+├── pages
+│   ├── index
+│   │   ├── index.js
+│   │   ├── index.json
+│   │   ├── index.wxml
+│   │   └── index.wxss
+│   └── logs
+│       ├── logs.js
+│       ├── logs.json
+│       ├── logs.wxml
+│       └── logs.wxss
 ├── project.config.json
-├── project.private.config.json
-└── ...
+└── utils
+    └── util.js
 ```
 
-输出的代码结构：
+## 插件选项
 
-```text
-├── ...
-├── dist
-│   ├── miniprogram
-│   │   ├── apis
-│   │   │   └── test
-│   │   │       └── index.js
-│   │   ├── app.js
-│   │   ├── app.json
-│   │   ├── app.wxss
-│   │   ├── assets
-│   │   │   ├── images
-│   │   │   │   ├── test.png
-│   │   ├── components
-│   │   │   └── navigation-bar
-│   │   │       ├── navigation-bar.js
-│   │   │       ├── navigation-bar.json
-│   │   │       ├── navigation-bar.wxml
-│   │   │       └── navigation-bar.wxss
-│   │   ├── constants
-│   │   │   └── index.js
-│   │   ├── pages
-│   │   │   ├── index
-│   │   │   │   ├── index.js
-│   │   │   │   ├── index.json
-│   │   │   │   ├── index.wxml
-│   │   │   │   └── index.wxss
-│   │   ├── sitemap.json
-│   │   └── tools
-│   │       ├── index.js
-│   │       ├── request.js
-│   │       └── upload-request.js
-│   ├── project.config.json
-│   └── project.private.config.json
-└── ...
+#### `compress?: (html: string | Uint8Array) => Promise<string | Uint8Array> | string | Uint8Array`
+
+自定义函数，用于压缩 HTML 字符串或 `Uint8Array` 输入
+
+- **参数**：
+  - `html`：待压缩的内容，可以是字符串或 `Uint8Array`
+- **返回值**：
+  - 返回压缩后的内容，可以是同步或异步的 `string` 或 `Uint8Array`
+
+配置示例：
+```ts
+import minifyHtml from '@minify-html/node';
+
+compress: (source) => minifyHtml.minify(Buffer.from(source), {})
 ```
 
-# 插件选项
+#### `debug?: boolean`
 
-- **buildDir** 必填。编译小程序的代码目录
-- **outputDir** 必填。输出编译小程序的代码目录
-- **processedDir** 可选。要处理的代码文件夹名称，默认为 ```['apis', 'components', 'constants', 'pages', 'tools']```
-- **processedAssetDir** 可选。要处理的资源文件夹名称，默认为 ```['assets']```
+是否启用详细日志输出，仅有被复制匹配的文件才有日志输出
 
-# 其他相关
+- **默认值**：`false`
 
-- 当不要想使用该插件，如何将原来代码转换为使用 Uni-App / Taro 等框架开发
+#### `isTsProject?: boolean`
 
-该插件使用的对象为微信原生小程序，意味着如果需要转化为其他框架，可以从 "微信原生小程序如何转换 XXX 框架" 为出发点，这是一种方式
+是否为 TypeScript 项目
 
-另一种方式是使用框架本身提供的转换工具，尝试转换微信小程序，例如 [Uni-App 转换工具指南](https://zh.uniapp.dcloud.io/translate.html) 等
+- **默认值**：`true`
 
-- 当使用该插件遇到无法编译，或者发生未知错误，想改为原来的微信小程序需要如何做
+#### `jsonIgnore?: string | string[]`
 
-首先要做的是移除该插件，因为该插件本质上只是使用 Vite 来对文件进行编译而已
+指定要排除处理的 JSON 文件或目录的 glob 匹配模式
 
-其次，即使不使用 Vite，微信开发者工具也能进行编译，除此之外没有太大区别
+#### `jsonInclude?: string | string[]`
 
-移除该插件后，剩下的就是熟悉的微信小程序代码
+指定要包含处理的 JSON 文件或目录的 glob 匹配模式
 
-# License
+配置示例：
+```ts
+jsonInclude: ['project.private.config.json']
+```
+
+#### `outputDir?: string`
+
+输出目录，相对于项目根目录。所有匹配的文件将被复制到该目录中
+
+- **默认值**：`"dist"`
+
+#### `rootDir?: string`
+
+用于解析文件路径的根目录
+
+- **默认值**：`"miniprogram"`
+
+#### `targets?: { src: string; dest: string; }[]`
+
+要复制的目标列表
+
+每个对象代表一个复制规则：
+
+- `src`: 相对于 `rootDir` 的源文件 glob 匹配模式
+- `dest`: 相对于 `outputDir` 的目标目录，匹配的文件将被复制到此目录中
+
+配置示例：
+```ts
+targets: [
+  {
+    dest: 'assets',
+    src: 'assets/**/*.txt',
+  },
+]
+```
+
+## 其他问题
+
+- 适用场景
+
+  原生微信小程序
+
+- 支持版本
+
+  基于 vite 6 编写
+
+- 使用示例
+
+  参考 [examples](https://github.com/dafengzhen/vite-plugin-mp/tree/main/examples) 下的 miniprogram，使用的是微信小程序 ts 基础模版
+
+## License
 
 [MIT](https://opensource.org/licenses/MIT)

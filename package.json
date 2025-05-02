@@ -1,38 +1,41 @@
 {
   "name": "@dafengzhen/vite-plugin-mp",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "vite-plugin-mp 使用 Vite 编译微信小程序",
+  "author": "dafengzhen",
+  "license": "MIT",
   "type": "module",
-  "main": "dist/main.umd.cjs",
-  "module": "dist/main.js",
-  "types": "dist/main.d.ts",
+  "main": "dist/vite-plugin-mp.cjs",
+  "module": "dist/vite-plugin-mp.js",
+  "types": "dist/vite-plugin-mp.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "import": "./dist/main.js",
-      "require": "./dist/main.umd.cjs"
+      "import": "./dist/vite-plugin-mp.js",
+      "require": "./dist/vite-plugin-mp.cjs"
     }
   },
   "devDependencies": {
-    "@types/node": "^20.10.6",
-    "glob": "^10.3.10",
-    "prettier": "^3.1.1",
+    "@eslint/js": "^9.25.1",
+    "@types/node": "^22.15.3",
+    "eslint": "^9.25.1",
+    "eslint-plugin-perfectionist": "^4.12.3",
+    "prettier": "^3.5.3",
     "rollup-plugin-copy": "^3.5.0",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.10"
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.31.1",
+    "vite": "^6.3.4"
   },
   "peerDependencies": {
-    "glob": ">=10.3.10",
-    "rollup-plugin-copy": ">=3.5.0",
-    "vite": ">=5.0.10"
+    "vite": ">=6"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18"
   },
   "scripts": {
-    "dev": "yarn build --mode development --watch",
+    "dev": "npm build --mode development --watch",
     "build": "tsc && vite build --mode production",
     "preview": "vite preview",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -47,20 +50,15 @@
     "url": "git+https://github.com/dafengzhen/vite-plugin-mp.git"
   },
   "keywords": [
-    "vite",
-    "rollup",
+    "vite-plugin",
     "plugin",
     "weixin",
     "wechat",
     "mini programs",
     "mp",
-    "typescript",
-    "sass",
     "wxml",
     "wxss"
   ],
-  "author": "dafengzhen",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/dafengzhen/vite-plugin-mp/issues"
   },

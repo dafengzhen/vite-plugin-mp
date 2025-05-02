@@ -1,0 +1,17 @@
+{
+  "name": "miniprogram-ts-quickstart",
+  "version": "1.0.0",
+  "description": "example",
+  "scripts": {
+    "build": "vite build",
+    "watch": "vite build -w"
+  },
+  "keywords": [],
+  "author": "dafengzhen",
+  "license": "",
+  "devDependencies": {
+    "@dafengzhen/vite-plugin-mp": "^1.1.0",
+    "miniprogram-api-typings": "^2.8.3-1",
+    "vite": "^6"
+  }
+}
