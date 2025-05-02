@@ -81,6 +81,8 @@ export default function wxmlPlugin(options: WxmlPluginOptions = {}): Plugin {
                         fileName: finalPath,
                         source,
                       };
+                    } else if (file.type === 'chunk' && fileName.endsWith('.js') && fileName.startsWith(WXML_PREFIX)) {
+                      delete bundle[fileName];
                     }
                   }
                 },

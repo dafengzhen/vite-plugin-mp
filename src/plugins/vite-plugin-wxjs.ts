@@ -54,6 +54,8 @@ export default function wxJsPlugin(options: WxJsPluginOptions = {}): Plugin {
         {} as Record<string, string>,
       );
 
+      const userOutput = config?.build?.rollupOptions?.output as OutputOptions;
+
       const pluginConfig: UserConfig = {
         build: {
           rollupOptions: {
@@ -66,7 +68,7 @@ export default function wxJsPlugin(options: WxJsPluginOptions = {}): Plugin {
                   return normalizePath(path.join(outputDir, relative));
                 }
 
-                const entryFileNames = (config?.build?.rollupOptions?.output as OutputOptions)?.entryFileNames;
+                const entryFileNames = userOutput?.entryFileNames;
                 if (typeof entryFileNames === 'function') {
                   return entryFileNames(chunkInfo);
                 } else if (typeof entryFileNames === 'string') {
@@ -75,6 +77,7 @@ export default function wxJsPlugin(options: WxJsPluginOptions = {}): Plugin {
                   return '[name].js';
                 }
               },
+              format: userOutput?.format ?? 'cjs',
             },
           },
         },
