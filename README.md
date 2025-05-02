@@ -76,10 +76,10 @@ dist
 │    │       └── logs.wxss
 │    └── utils
 │        └── util.js
-├── project.config.json
+└── project.config.json
 ```
 
-![build](images/build.png "")
+<img src="images/build.png" alt="build" style="width:50%; height:auto;">
 
 ## 插件选项
 
