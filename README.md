@@ -94,9 +94,25 @@ dist
 
 配置示例：
 ```ts
-import minifyHtml from '@minify-html/node';
+import { minify } from 'html-minifier-terser';
 
-compress: (source) => minifyHtml.minify(Buffer.from(source), {})
+compress: (source) => {
+  return minify(source as string, {
+    caseSensitive: true,
+    collapseWhitespace: true,
+    conservativeCollapse: true,
+    keepClosingSlash: true,
+    minifyCSS: true,
+    minifyJS: true,
+    minifyURLs: true,
+    removeComments: true,
+    removeEmptyAttributes: true,
+    removeOptionalTags: true,
+    removeRedundantAttributes: true,
+    sortAttributes: true,
+    sortClassName: true,
+  });
+}
 ```
 
 #### `debug?: boolean`

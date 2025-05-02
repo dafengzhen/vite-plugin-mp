@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "example",
   "scripts": {
-    "build": "vite build",
-    "watch": "vite build -w"
+    "dev": "vite build -w",
+    "build": "vite build"
   },
   "keywords": [],
   "author": "dafengzhen",
