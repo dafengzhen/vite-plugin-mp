@@ -82,7 +82,7 @@ export default function wxssPlugin(options: WxssPluginOptions = {}): Plugin {
       }
 
       const wxssPath = id.replace(/\.css$/, '.wxss');
-      const code = fs.readFileSync(wxssPath, 'utf-8');
+      const code = await fs.promises.readFile(wxssPath, 'utf-8');
 
       return {
         code,

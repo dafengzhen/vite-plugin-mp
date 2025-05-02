@@ -100,7 +100,7 @@ export default function wxmlPlugin(options: WxmlPluginOptions = {}): Plugin {
       }
 
       const wxmlPath = id.replace(/\.html$/, '.wxml');
-      const code = fs.readFileSync(wxmlPath, 'utf-8');
+      const code = await fs.promises.readFile(wxmlPath, 'utf-8');
 
       return {
         code,

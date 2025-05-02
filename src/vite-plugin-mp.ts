@@ -46,7 +46,7 @@ function createRootCheckPlugin(rootDir: string): Plugin {
     async buildStart() {
       try {
         const fullPath = path.resolve(rootDir);
-        const files = fs.readdirSync(fullPath);
+        const files = await fs.promises.readdir(fullPath);
         if (files.length === 0) {
           this.warn(`rootDir "${rootDir}" is an empty directory.`);
         }

@@ -59,25 +59,27 @@ project.private.config.json
 ```text
 # 输出
 dist
-└── miniprogram
-    ├── app.js
-    ├── app.json
-    ├── app.wxss
-    ├── pages
-    │   ├── index
-    │   │   ├── index.js
-    │   │   ├── index.json
-    │   │   ├── index.wxml
-    │   │   └── index.wxss
-    │   └── logs
-    │       ├── logs.js
-    │       ├── logs.json
-    │       ├── logs.wxml
-    │       └── logs.wxss
-    ├── project.config.json
-    └── utils
-        └── util.js
+├── miniprogram
+│    ├── app.js
+│    ├── app.json
+│    ├── app.wxss
+│    ├── pages
+│    │   ├── index
+│    │   │   ├── index.js
+│    │   │   ├── index.json
+│    │   │   ├── index.wxml
+│    │   │   └── index.wxss
+│    │   └── logs
+│    │       ├── logs.js
+│    │       ├── logs.json
+│    │       ├── logs.wxml
+│    │       └── logs.wxss
+│    └── utils
+│        └── util.js
+├── project.config.json
 ```
+
+![build](images/build.png "")
 
 ## 插件选项
 
@@ -166,6 +168,10 @@ targets: [
 - 使用示例
 
   参考 [examples](https://github.com/dafengzhen/vite-plugin-mp/tree/main/examples) 下的 miniprogram，使用的是微信小程序 ts 基础模版
+
+- 运行项目
+
+  构建完成，会生成 ```dist``` 目录，打开微信小程序开发者工具，选择 ```dist``` 目录导入
 
 ## License
 

@@ -61,12 +61,13 @@ export default function jsonPlugin(options: JsonPluginOptions = {}): Plugin {
         await Promise.all(
           files.map(async (file) => {
             try {
-              const content = fs.readFileSync(file, 'utf-8');
+              const content = await fs.promises.readFile(file, 'utf-8');
               const parsed = JSON.parse(content);
               const minified = JSON.stringify(parsed);
 
-              const relative = file.startsWith(rootDir) ? path.relative(rootDir, file) : file;
-              const finalPath = normalizePath(path.join(outputDir, relative));
+              const isInRoot = file.startsWith(rootDir);
+              const relative = isInRoot ? path.relative(rootDir, file) : file;
+              const finalPath = isInRoot ? normalizePath(path.join(outputDir, relative)) : relative;
 
               this.emitFile({
                 fileName: finalPath,

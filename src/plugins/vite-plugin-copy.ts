@@ -111,8 +111,8 @@ export default function copyPlugin(options: CopyPluginOptions = {}): Plugin {
             log(`SrcPath: ${srcPath}`);
             log(`DestPath: ${destPath}`);
 
-            fs.mkdirSync(path.dirname(destPath), { recursive: true });
-            fs.copyFileSync(srcPath, destPath);
+            await fs.promises.mkdir(path.dirname(destPath), { recursive: true });
+            await fs.promises.copyFile(srcPath, destPath);
           }
         } catch (error) {
           this.error(
