@@ -11,6 +11,12 @@ export interface WxmlPluginOptions {
      */
     compress?: (html: string | Uint8Array) => Promise<string | Uint8Array> | string | Uint8Array;
     /**
+     * Output directory for generated files.
+     *
+     * @default "miniprogram"
+     */
+    outputDir?: string;
+    /**
      * Root directory for resolving files.
      *
      * @default "miniprogram"

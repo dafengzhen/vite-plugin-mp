@@ -10,7 +10,7 @@ export interface CopyPluginOptions {
      * Output directory relative to project root.
      * All matched files will be copied into this directory.
      *
-     * @default "dist"
+     * @default "miniprogram"
      */
     outputDir?: string;
     /**

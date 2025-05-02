@@ -59,23 +59,24 @@ project.private.config.json
 ```text
 # 输出
 dist
-├── app.js
-├── app.json
-├── app.wxss
-├── pages
-│   ├── index
-│   │   ├── index.js
-│   │   ├── index.json
-│   │   ├── index.wxml
-│   │   └── index.wxss
-│   └── logs
-│       ├── logs.js
-│       ├── logs.json
-│       ├── logs.wxml
-│       └── logs.wxss
-├── project.config.json
-└── utils
-    └── util.js
+└── miniprogram
+    ├── app.js
+    ├── app.json
+    ├── app.wxss
+    ├── pages
+    │   ├── index
+    │   │   ├── index.js
+    │   │   ├── index.json
+    │   │   ├── index.wxml
+    │   │   └── index.wxss
+    │   └── logs
+    │       ├── logs.js
+    │       ├── logs.json
+    │       ├── logs.wxml
+    │       └── logs.wxss
+    ├── project.config.json
+    └── utils
+        └── util.js
 ```
 
 ## 插件选项
@@ -123,9 +124,9 @@ jsonInclude: ['project.private.config.json']
 
 #### `outputDir?: string`
 
-输出目录，相对于项目根目录。所有匹配的文件将被复制到该目录中
+输出目录，相对于项目根目录
 
-- **默认值**：`"dist"`
+- **默认值**：`"miniprogram"`
 
 #### `rootDir?: string`
 

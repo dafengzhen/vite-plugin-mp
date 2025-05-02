@@ -7,6 +7,12 @@ export interface WxJsPluginOptions {
      */
     isTsProject?: boolean;
     /**
+     * Output directory for generated files.
+     *
+     * @default "miniprogram"
+     */
+    outputDir?: string;
+    /**
      * Root directory for resolving files.
      *
      * @default "miniprogram"

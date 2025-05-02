@@ -5,15 +5,6 @@ import { mergeConfig } from 'vite';
 
 const resolvedBy = 'vite-plugin-mp-entry';
 
-export interface EntryPluginOptions {
-  /**
-   * Root directory for resolving files.
-   *
-   * @default "miniprogram"
-   */
-  rootDir?: string;
-}
-
 export default function EntryPlugin(): Plugin {
   return {
     config(config: UserConfig) {

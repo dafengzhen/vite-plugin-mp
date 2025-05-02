@@ -4,7 +4,7 @@ import type { Plugin, UserConfig } from 'vite';
 import crypto from 'crypto';
 import path from 'path';
 import { globSync } from 'tinyglobby';
-import { mergeConfig } from 'vite';
+import { mergeConfig, normalizePath } from 'vite';
 
 const resolvedBy = 'vite-plugin-mp-wxjs';
 const WXJS_PREFIX = 'wxjs-';
@@ -18,6 +18,13 @@ export interface WxJsPluginOptions {
   isTsProject?: boolean;
 
   /**
+   * Output directory for generated files.
+   *
+   * @default "miniprogram"
+   */
+  outputDir?: string;
+
+  /**
    * Root directory for resolving files.
    *
    * @default "miniprogram"
@@ -27,6 +34,7 @@ export interface WxJsPluginOptions {
 
 export default function wxJsPlugin(options: WxJsPluginOptions = {}): Plugin {
   const rootDir = options.rootDir ?? 'miniprogram';
+  const outputDir = options.outputDir ?? 'miniprogram';
   const extensions = (options.isTsProject ?? true) ? 'ts' : 'js';
 
   return {
@@ -54,7 +62,8 @@ export default function wxJsPlugin(options: WxJsPluginOptions = {}): Plugin {
               entryFileNames: (chunkInfo) => {
                 const name = chunkInfo.name;
                 if (name.startsWith(WXJS_PREFIX)) {
-                  return name.substring(WXJS_PREFIX.length).replace(/-\w{8}$/, '.js');
+                  const relative = name.substring(WXJS_PREFIX.length).replace(/-\w{8}$/, '.js');
+                  return normalizePath(path.join(outputDir, relative));
                 }
 
                 const entryFileNames = (config?.build?.rollupOptions?.output as OutputOptions)?.entryFileNames;

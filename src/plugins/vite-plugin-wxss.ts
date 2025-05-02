@@ -5,12 +5,19 @@ import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
 import { globSync } from 'tinyglobby';
-import { mergeConfig } from 'vite';
+import { mergeConfig, normalizePath } from 'vite';
 
 const resolvedBy = 'vite-plugin-mp-wxss';
 const WXSS_PREFIX = 'wxss-';
 
 export interface WxssPluginOptions {
+  /**
+   * Output directory for generated files.
+   *
+   * @default "miniprogram"
+   */
+  outputDir?: string;
+
   /**
    * Root directory for resolving files.
    *
@@ -21,6 +28,7 @@ export interface WxssPluginOptions {
 
 export default function wxssPlugin(options: WxssPluginOptions = {}): Plugin {
   const rootDir = options.rootDir ?? 'miniprogram';
+  const outputDir = options.outputDir ?? 'miniprogram';
 
   return {
     config(config: UserConfig) {
@@ -47,7 +55,8 @@ export default function wxssPlugin(options: WxssPluginOptions = {}): Plugin {
               assetFileNames: (chunkInfo) => {
                 const name = chunkInfo.names?.[0];
                 if (name?.startsWith(WXSS_PREFIX)) {
-                  return name.substring(WXSS_PREFIX.length).replace(/-\w{8}.css$/, '.wxss');
+                  const relative = name.substring(WXSS_PREFIX.length).replace(/-\w{8}.css$/, '.wxss');
+                  return normalizePath(path.join(outputDir, relative));
                 }
 
                 const assetFileNames = (config?.build?.rollupOptions?.output as OutputOptions)?.assetFileNames;

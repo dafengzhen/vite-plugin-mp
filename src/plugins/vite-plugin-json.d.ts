@@ -9,6 +9,12 @@ export interface JsonPluginOptions {
      */
     jsonInclude?: string | string[];
     /**
+     * Output directory for generated files.
+     *
+     * @default "miniprogram"
+     */
+    outputDir?: string;
+    /**
      * Root directory for resolving files.
      *
      * @default "miniprogram"

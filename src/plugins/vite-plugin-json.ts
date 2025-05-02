@@ -3,6 +3,7 @@ import type { Plugin } from 'vite';
 import fs from 'fs';
 import path from 'path';
 import { globSync } from 'tinyglobby';
+import { normalizePath } from 'vite';
 
 const resolvedBy = 'vite-plugin-mp-json';
 
@@ -18,6 +19,13 @@ export interface JsonPluginOptions {
   jsonInclude?: string | string[];
 
   /**
+   * Output directory for generated files.
+   *
+   * @default "miniprogram"
+   */
+  outputDir?: string;
+
+  /**
    * Root directory for resolving files.
    *
    * @default "miniprogram"
@@ -27,6 +35,7 @@ export interface JsonPluginOptions {
 
 export default function jsonPlugin(options: JsonPluginOptions = {}): Plugin {
   const rootDir = options.rootDir ?? 'miniprogram';
+  const outputDir = options.outputDir ?? 'miniprogram';
   const include = options.jsonInclude;
   const ignore = options.jsonIgnore;
   const files: string[] = [];
@@ -56,8 +65,11 @@ export default function jsonPlugin(options: JsonPluginOptions = {}): Plugin {
               const parsed = JSON.parse(content);
               const minified = JSON.stringify(parsed);
 
+              const relative = file.startsWith(rootDir) ? path.relative(rootDir, file) : file;
+              const finalPath = normalizePath(path.join(outputDir, relative));
+
               this.emitFile({
-                fileName: file.startsWith(rootDir) ? path.relative(rootDir, file) : file,
+                fileName: finalPath,
                 source: minified,
                 type: 'asset',
               });

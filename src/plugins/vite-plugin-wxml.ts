@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
 import { globSync } from 'tinyglobby';
-import { mergeConfig } from 'vite';
+import { mergeConfig, normalizePath } from 'vite';
 
 const resolvedBy = 'vite-plugin-mp-wxml';
 const WXML_PREFIX = 'wxml-';
@@ -22,6 +22,13 @@ export interface WxmlPluginOptions {
   compress?: (html: string | Uint8Array) => Promise<string | Uint8Array> | string | Uint8Array;
 
   /**
+   * Output directory for generated files.
+   *
+   * @default "miniprogram"
+   */
+  outputDir?: string;
+
+  /**
    * Root directory for resolving files.
    *
    * @default "miniprogram"
@@ -31,6 +38,7 @@ export interface WxmlPluginOptions {
 
 export default function wxmlPlugin(options: WxmlPluginOptions = {}): Plugin {
   const rootDir = options.rootDir ?? 'miniprogram';
+  const outputDir = options.outputDir ?? 'miniprogram';
   const compress = options.compress;
 
   return {
@@ -60,6 +68,7 @@ export default function wxmlPlugin(options: WxmlPluginOptions = {}): Plugin {
                   for (const [fileName, file] of Object.entries(bundle)) {
                     if (file.type === 'asset' && fileName.endsWith('.html')) {
                       const relative = path.relative(rootDir, fileName).replace(/\.html$/, '.wxml');
+                      const finalPath = normalizePath(path.join(outputDir, relative));
                       delete bundle[fileName];
 
                       let source = file.source;
@@ -69,7 +78,7 @@ export default function wxmlPlugin(options: WxmlPluginOptions = {}): Plugin {
 
                       bundle[relative] = {
                         ...file,
-                        fileName: relative,
+                        fileName: finalPath,
                         source,
                       };
                     }

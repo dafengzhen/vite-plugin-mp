@@ -18,7 +18,7 @@ export interface CopyPluginOptions {
    * Output directory relative to project root.
    * All matched files will be copied into this directory.
    *
-   * @default "dist"
+   * @default "miniprogram"
    */
   outputDir?: string;
 
@@ -50,7 +50,7 @@ interface CopyTarget {
 
 export default function copyPlugin(options: CopyPluginOptions = {}): Plugin {
   const rootDir = options.rootDir ?? 'miniprogram';
-  const outputDir = options.outputDir ?? 'dist';
+  let outputDir = options.outputDir ?? 'miniprogram';
   const debug = options.debug ?? false;
   const targets = options.targets ?? [];
 
@@ -60,6 +60,9 @@ export default function copyPlugin(options: CopyPluginOptions = {}): Plugin {
 
   return {
     apply: 'build',
+    configResolved(config) {
+      outputDir = path.join(config.build?.outDir ?? 'dist', outputDir);
+    },
     async generateBundle() {
       if (targets.length === 0) {
         return;
@@ -73,6 +76,8 @@ export default function copyPlugin(options: CopyPluginOptions = {}): Plugin {
           this.info(msg);
         }
       };
+
+      log(`OutputDir: ${outputDir}`);
 
       for (const target of targets) {
         const { dest, src } = target;
