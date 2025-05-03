@@ -5,6 +5,7 @@ import path from 'path';
 
 import type { CopyPluginOptions } from './plugins/vite-plugin-copy';
 import type { JsonPluginOptions } from './plugins/vite-plugin-json';
+import type { TovwPluginOptions } from './plugins/vite-plugin-tovw';
 import type { WxJsPluginOptions } from './plugins/vite-plugin-wxjs';
 import type { WxmlPluginOptions } from './plugins/vite-plugin-wxml';
 import type { WxssPluginOptions } from './plugins/vite-plugin-wxss';
@@ -12,6 +13,7 @@ import type { WxssPluginOptions } from './plugins/vite-plugin-wxss';
 import copyPlugin from './plugins/vite-plugin-copy';
 import entryPlugin from './plugins/vite-plugin-entry';
 import jsonPlugin from './plugins/vite-plugin-json';
+import tovwPlugin from './plugins/vite-plugin-tovw';
 import wxJsPlugin from './plugins/vite-plugin-wxjs';
 import wxmlPlugin from './plugins/vite-plugin-wxml';
 import wxssPlugin from './plugins/vite-plugin-wxss';
@@ -22,6 +24,7 @@ const ROOT_CHECK_PLUGIN_NAME = `${PLUGIN_NAME}-root-check`;
 export interface IOptions
   extends CopyPluginOptions,
     JsonPluginOptions,
+    TovwPluginOptions,
     WxJsPluginOptions,
     WxmlPluginOptions,
     WxssPluginOptions {}
@@ -38,6 +41,7 @@ export default function MpPlugin(options: IOptions = {}): any[] {
     wxJsPlugin(options),
     jsonPlugin(options),
     copyPlugin(options),
+    tovwPlugin(options),
   ];
 }
 
