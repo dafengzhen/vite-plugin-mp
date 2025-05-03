@@ -187,6 +187,19 @@ targets: [
 
   构建完成，会生成 ```dist``` 目录，打开微信小程序开发者工具，选择 ```dist``` 目录导入
 
+- [目录结构](https://developers.weixin.qq.com/miniprogram/dev/framework/structure.html)
+
+  一个小程序页面由四个文件组成，分别是：
+
+  | 文件类型 | 必需 | 作用       |
+  |----------|------|------------|
+  | js       | 是   | 页面逻辑   |
+  | wxml     | 是   | 页面结构   |
+  | json     | 否   | 页面配置   |
+  | wxss     | 否   | 页面样式表 |
+
+  描述页面的四个文件应该具有相同的路径与文件名
+
 ## License
 
 [MIT](https://opensource.org/licenses/MIT)
