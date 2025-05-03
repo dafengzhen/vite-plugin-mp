@@ -76,6 +76,13 @@ export default function wxssPlugin(options: WxssPluginOptions = {}): Plugin {
       return mergeConfig(config, pluginConfig);
     },
     enforce: 'pre',
+    generateBundle(_, bundle) {
+      for (const [fileName, file] of Object.entries(bundle)) {
+        if (file.type === 'chunk' && fileName.endsWith('.js') && fileName.startsWith(WXSS_PREFIX)) {
+          delete bundle[fileName];
+        }
+      }
+    },
     async load(id) {
       if (!id.endsWith('.css')) {
         return null;
