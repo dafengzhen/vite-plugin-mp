@@ -99,12 +99,10 @@ import { minify } from 'html-minifier-terser';
 compress: (source) => {
   return minify(source as string, {
     caseSensitive: true,
+    collapseBooleanAttributes: true,
     collapseWhitespace: true,
     conservativeCollapse: true,
     keepClosingSlash: true,
-    minifyCSS: true,
-    minifyJS: true,
-    minifyURLs: true,
     removeComments: true,
     removeEmptyAttributes: true,
     removeOptionalTags: true,
