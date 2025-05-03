@@ -2,6 +2,7 @@ import type { OutputOptions } from 'rollup';
 import type { Plugin, UserConfig } from 'vite';
 
 import crypto from 'crypto';
+import fs from 'fs';
 import path from 'path';
 import { globSync } from 'tinyglobby';
 import { mergeConfig, normalizePath } from 'vite';
@@ -86,5 +87,40 @@ export default function wxJsPlugin(options: WxJsPluginOptions = {}): Plugin {
       return mergeConfig(config, pluginConfig);
     },
     name: resolvedBy,
+    transform(code, id) {
+      if (!id.endsWith(`.${extensions}`)) {
+        return null;
+      }
+
+      const ext = path.extname(id);
+      const fileNameWithoutExt = path.basename(id, ext);
+      const dirPath = path.dirname(id);
+
+      const wxmlFile = `${fileNameWithoutExt}.wxml`;
+      const wxssFile = `${fileNameWithoutExt}.wxss`;
+      const jsonFile = `${fileNameWithoutExt}.json`;
+      const imports = [];
+
+      if (fs.existsSync(path.join(dirPath, wxmlFile))) {
+        imports.push(`import './${wxmlFile}?raw';`);
+      }
+
+      if (fs.existsSync(path.join(dirPath, wxssFile))) {
+        imports.push(`import './${wxssFile}?raw';`);
+      }
+
+      if (fs.existsSync(path.join(dirPath, jsonFile))) {
+        imports.push(`import './${jsonFile}?raw';`);
+      }
+
+      if (imports.length === 0) {
+        return null;
+      }
+
+      return {
+        code: `${imports.join('\n')}\n${code}`,
+        id,
+      };
+    },
   };
 }
