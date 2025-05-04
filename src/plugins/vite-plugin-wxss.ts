@@ -7,6 +7,8 @@ import path from 'path';
 import { globSync } from 'tinyglobby';
 import { mergeConfig, normalizePath } from 'vite';
 
+import { generateSecureRandomId } from '../tools';
+
 const resolvedBy = 'vite-plugin-mp-wxss';
 const WXSS_PREFIX = 'wxss-';
 
@@ -80,6 +82,12 @@ export default function wxssPlugin(options: WxssPluginOptions = {}): Plugin {
       for (const [fileName, file] of Object.entries(bundle)) {
         if (file.type === 'chunk' && fileName.endsWith('.js') && fileName.startsWith(WXSS_PREFIX)) {
           delete bundle[fileName];
+        } else if (file.type === 'asset' && fileName.endsWith('.wxss') && typeof file.source === 'string') {
+          const source = file.source.replace(/\.__wxss_[A-Za-z0-9]{8}__\s*\{\s*color:\s*#fff;?\s*}/gs, '');
+          bundle[fileName] = {
+            ...file,
+            source,
+          };
         }
       }
     },
@@ -125,6 +133,16 @@ export default function wxssPlugin(options: WxssPluginOptions = {}): Plugin {
         moduleSideEffects: true,
         resolvedBy,
       };
+    },
+    transform(code: string, id: string) {
+      if (id.endsWith('.css') && code) {
+        const newCode = code + `.__wxss_${generateSecureRandomId()}__ {color:#fff}`;
+        return {
+          code: newCode,
+        };
+      }
+
+      return null;
     },
   };
 }
