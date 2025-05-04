@@ -102,6 +102,7 @@ compress: (source) => {
     collapseBooleanAttributes: true,
     collapseWhitespace: true,
     conservativeCollapse: true,
+    ignoreCustomFragments: [/\{\{[\s\S]*?}}/],
     keepClosingSlash: true,
     removeComments: true,
     removeEmptyAttributes: true,
