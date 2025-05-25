@@ -1,6 +1,6 @@
 {
   "name": "@dafengzhen/vite-plugin-mp",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "vite-plugin-mp 使用 Vite 编译微信小程序",
   "author": "dafengzhen",
   "license": "MIT",
@@ -18,15 +18,15 @@
     }
   },
   "devDependencies": {
-    "@eslint/js": "^9.25.1",
-    "@types/node": "^22.15.3",
-    "eslint": "^9.25.1",
-    "eslint-plugin-perfectionist": "^4.12.3",
+    "@eslint/js": "^9.27.0",
+    "@types/node": "^22.15.21",
+    "eslint": "^9.27.0",
+    "eslint-plugin-perfectionist": "^4.13.0",
     "prettier": "^3.5.3",
     "rollup-plugin-copy": "^3.5.0",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.31.1",
-    "vite": "^6.3.4"
+    "typescript-eslint": "^8.32.1",
+    "vite": "^6.3.5"
   },
   "peerDependencies": {
     "vite": ">=6"

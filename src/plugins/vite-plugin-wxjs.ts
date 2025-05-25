@@ -56,9 +56,11 @@ export default function wxJsPlugin(options: WxJsPluginOptions = {}): Plugin {
       );
 
       const userOutput = config?.build?.rollupOptions?.output as OutputOptions;
+      const assetsDir = config?.build?.assetsDir ?? `${outputDir}/assets`;
 
       const pluginConfig: UserConfig = {
         build: {
+          assetsDir,
           rollupOptions: {
             input,
             output: {
