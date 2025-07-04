@@ -57,6 +57,7 @@ export default function wxJsPlugin(options: WxJsPluginOptions = {}): Plugin {
 
       const userOutput = config?.build?.rollupOptions?.output as OutputOptions;
       const assetsDir = config?.build?.assetsDir ?? `${outputDir}/assets`;
+      const target = config?.build?.target ?? ['es2015', 'chrome87', 'edge88', 'firefox78', 'safari14'];
 
       const pluginConfig: UserConfig = {
         build: {
@@ -83,6 +84,7 @@ export default function wxJsPlugin(options: WxJsPluginOptions = {}): Plugin {
               format: userOutput?.format ?? 'cjs',
             },
           },
+          target,
         },
       };
 

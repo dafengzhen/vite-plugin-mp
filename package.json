@@ -1,6 +1,6 @@
 {
   "name": "@dafengzhen/vite-plugin-mp",
-  "version": "1.1.11",
+  "version": "1.1.12",
   "description": "vite-plugin-mp 使用 Vite 编译微信小程序",
   "author": "dafengzhen",
   "license": "MIT",
@@ -32,7 +32,7 @@
     "vite": ">=6"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "scripts": {
     "dev": "npm build --mode development --watch",
