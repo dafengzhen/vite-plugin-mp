@@ -4,7 +4,7 @@
 
 ## 安装插件
 
-请确保你已安装 [vite 6](https://vite.dev/guide/#manual-installation)
+请确保你已安装 [vite 7](https://vite.dev/guide/#manual-installation)
 
 如果还没有安装，请执行：```npm install -D vite```
 
@@ -194,7 +194,7 @@ targets: [
 
 - 插件版本
 
-  基于 vite 6 编写
+  基于 vite 7 编写
 
 - 使用示例
 
