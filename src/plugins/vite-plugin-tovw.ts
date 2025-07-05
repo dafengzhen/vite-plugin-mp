@@ -1,6 +1,6 @@
 import type { Plugin } from 'vite';
 
-const resolvedBy = 'vite-plugin-mp-tovw';
+const resolvedBy = 'vite-plugin-wechat-mp-tovw';
 
 const rpxToVw = (css: string, designWidth = 750): string => {
   return css.replace(/:\s*([^;{}]+)rpx/g, (match) => {

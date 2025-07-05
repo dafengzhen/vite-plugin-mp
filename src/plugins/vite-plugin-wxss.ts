@@ -9,7 +9,7 @@ import { mergeConfig, normalizePath } from 'vite';
 
 import { generateSecureRandomId } from '../tools';
 
-const resolvedBy = 'vite-plugin-mp-wxss';
+const resolvedBy = 'vite-plugin-wechat-mp-wxss';
 const WXSS_PREFIX = 'wxss-';
 
 export interface WxssPluginOptions {

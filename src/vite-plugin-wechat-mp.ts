@@ -18,7 +18,7 @@ import wxJsPlugin from './plugins/vite-plugin-wxjs';
 import wxmlPlugin from './plugins/vite-plugin-wxml';
 import wxssPlugin from './plugins/vite-plugin-wxss';
 
-const PLUGIN_NAME = 'vite-plugin-mp';
+const PLUGIN_NAME = 'vite-plugin-wechat-mp';
 const ROOT_CHECK_PLUGIN_NAME = `${PLUGIN_NAME}-root-check`;
 
 export interface IOptions

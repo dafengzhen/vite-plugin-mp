@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { glob } from 'tinyglobby';
 
-const resolvedBy = 'vite-plugin-mp-copy';
+const resolvedBy = 'vite-plugin-wechat-mp-copy';
 
 export interface CopyPluginOptions {
   /**

@@ -7,7 +7,7 @@ import path from 'path';
 import { globSync } from 'tinyglobby';
 import { mergeConfig, normalizePath } from 'vite';
 
-const resolvedBy = 'vite-plugin-mp-wxjs';
+const resolvedBy = 'vite-plugin-wechat-mp-wxjs';
 const WXJS_PREFIX = 'wxjs-';
 
 export interface WxJsPluginOptions {

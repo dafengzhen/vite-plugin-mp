@@ -3,7 +3,7 @@ import type { Plugin, UserConfig } from 'vite';
 
 import { mergeConfig } from 'vite';
 
-const resolvedBy = 'vite-plugin-mp-entry';
+const resolvedBy = 'vite-plugin-wechat-mp-entry';
 
 export default function EntryPlugin(): Plugin {
   return {

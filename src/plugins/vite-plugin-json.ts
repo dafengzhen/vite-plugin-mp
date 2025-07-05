@@ -5,7 +5,7 @@ import path from 'path';
 import { globSync } from 'tinyglobby';
 import { normalizePath } from 'vite';
 
-const resolvedBy = 'vite-plugin-mp-json';
+const resolvedBy = 'vite-plugin-wechat-mp-json';
 
 export interface JsonPluginOptions {
   /**

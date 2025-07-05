@@ -6,7 +6,7 @@ import path from 'path';
 import { globSync } from 'tinyglobby';
 import { mergeConfig, normalizePath } from 'vite';
 
-const resolvedBy = 'vite-plugin-mp-wxml';
+const resolvedBy = 'vite-plugin-wechat-mp-wxml';
 const WXML_PREFIX = 'wxml-';
 
 export interface WxmlPluginOptions {
