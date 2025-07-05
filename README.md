@@ -9,7 +9,7 @@
 如果还没有安装，请执行：```npm install -D vite```
 
 ```bash
-npm install -D @dafengzhen/vite-plugin-mp
+npm install -D vite-plugin-wechat-mp
 ```
 
 ## 使用插件
@@ -17,11 +17,11 @@ npm install -D @dafengzhen/vite-plugin-mp
 - **配置插件**
 
 ```javascript
-import VitePluginMp from '@dafengzhen/vite-plugin-mp';
+import VitePluginWechatMp from 'vite-plugin-wechat-mp';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  plugins: [VitePluginMp()],
+  plugins: [VitePluginWechatMp()],
 });
 ```
 

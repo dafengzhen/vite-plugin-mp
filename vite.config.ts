@@ -25,7 +25,7 @@ export default defineConfig(({ mode }) => {
   return {
     build: {
       lib: {
-        entry: resolve(__dirname, 'src/vite-plugin-mp.ts'),
+        entry: resolve(__dirname, 'src/vite-plugin-wechat-mp.ts'),
         fileName: '[name]',
         formats: ['es', 'cjs'],
         name: 'VitePluginMp',

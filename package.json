@@ -1,20 +1,20 @@
 {
-  "name": "@dafengzhen/vite-plugin-mp",
-  "version": "1.1.12",
-  "description": "vite-plugin-mp 使用 Vite 编译微信小程序",
+  "name": "vite-plugin-wechat-mp",
+  "version": "1.1.13",
+  "description": "vite-plugin-wechat-mp 使用 Vite 编译微信小程序",
   "author": "dafengzhen",
   "license": "MIT",
   "type": "module",
-  "main": "dist/vite-plugin-mp.cjs",
-  "module": "dist/vite-plugin-mp.js",
-  "types": "dist/vite-plugin-mp.d.ts",
+  "main": "dist/vite-plugin-wechat-mp.cjs",
+  "module": "dist/vite-plugin-wechat-mp.js",
+  "types": "dist/vite-plugin-wechat-mp.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "import": "./dist/vite-plugin-mp.js",
-      "require": "./dist/vite-plugin-mp.cjs"
+      "import": "./dist/vite-plugin-wechat-mp.js",
+      "require": "./dist/vite-plugin-wechat-mp.cjs"
     }
   },
   "devDependencies": {
@@ -47,7 +47,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dafengzhen/vite-plugin-mp.git"
+    "url": "git+https://github.com/dafengzhen/vite-plugin-wechat-mp.git"
   },
   "keywords": [
     "vite-plugin",
@@ -60,7 +60,7 @@
     "wxss"
   ],
   "bugs": {
-    "url": "https://github.com/dafengzhen/vite-plugin-mp/issues"
+    "url": "https://github.com/dafengzhen/vite-plugin-wechat-mp/issues"
   },
-  "homepage": "https://github.com/dafengzhen/vite-plugin-mp#readme"
+  "homepage": "https://github.com/dafengzhen/vite-plugin-wechat-mp#readme"
 }
